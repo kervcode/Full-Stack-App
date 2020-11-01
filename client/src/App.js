@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -11,17 +11,19 @@ import Authenticated from "./components/Authenticated";
 
 import './App.css';
 import { Provider } from './components/Context/Index';
+import Courses from './components/Courses';
 
 function App() {
+  // const [data, setData] = useState([]) 
   return (
     <Router>
       <Provider>
           <div>
-          <Header />
+            <Header />
 
-          <Switch>
-            {/* <Route exact path="/" component={Header}/> */}
-          </Switch>
+            <Switch>
+              <Route exact path="/" component={()=> <Courses data={'data'}/>}/>
+            </Switch>
         </div>
       </Provider>
   </Router>
