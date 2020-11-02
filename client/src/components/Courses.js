@@ -22,12 +22,10 @@ class Courses extends Component {
 
   // Render course component
   render() { 
-
-    console.log(this.state.data)
-
+    // Render all Courses
     let courses = this.state.data.map( course => (
       
-      <div className="grid-33" key={course.id}><a className="course--module course--link" href="course-detail.html">
+      <div className="grid-33" key={course.id}><a className="course--module course--link" href={course.id}>
                 <h4 className="course--label">Course</h4>
                 <h3 className="course--title">{course.title}</h3>
               </a>
@@ -36,7 +34,6 @@ class Courses extends Component {
 
 
     return ( 
-      <>
         <div className="bounds">
           {courses}
           <div className="grid-33"><a className="course--module course--add--module" href="create-course.html">
@@ -47,7 +44,6 @@ class Courses extends Component {
             </a>
           </div>
         </div>
-      </>
      );
   }
 }
