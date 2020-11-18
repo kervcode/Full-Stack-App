@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import './App.css';
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -13,9 +16,13 @@ import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 
+// Import context API to App
+import withContext from "./components/Context/Context"
 
-import './App.css';
-// import { Provider } from './components/Context/Index';
+// Initialize name variable for User Sign Up
+const UserSignUpWithContext = withContext(UserSignUp);
+
+
 
 class App extends Component {
   render(props) { 
@@ -30,8 +37,10 @@ class App extends Component {
             <Route exact path="/courses/:id"    render={(props)=> <CourseDetail {...props}/>} />   
             <Route exact path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
             <Route exact path="/signin" component={UserSignIn} />
-            <Route exact path="/signUp" component={UserSignUp} />
+            {/* <Route exact path="/signUp" component={UserSignUp} /> */}
+            <Route path="/signup" component={UserSignUpWithContext} />
             <Route exact path="/signOut" component={UserSignOut} />
+            <Route component={NotFound} />
             </Switch>
         </div>
       {/* </Provider> */}

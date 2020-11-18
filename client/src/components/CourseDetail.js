@@ -15,7 +15,7 @@ class CourseDetail extends Component {
   componentDidMount() {
     this.getCourseDetail();
   }
-  
+   
   getCourseDetail = () => {
     const id = this.props.match.params.id;
     axios.get(`http://localhost:5000/api/courses/${id}`)
