@@ -261,8 +261,7 @@ body {
   margin-top: -30px;
 }
 /* line 2, ../sass/mixins.sass */
-.actions--bar:before,
-.actions--bar:after {
+.actions--bar:before, .actions--bar:after {
   content: " ";
   display: table;
 }
@@ -306,11 +305,7 @@ p {
 }
 
 /* line 74, ../sass/global.sass */
-.grid,
-.grid-25,
-.grid-33,
-.grid-66,
-.grid-100 {
+.grid, .grid-25, .grid-33, .grid-66, .grid-100 {
   float: left;
   padding: 0 15px;
   box-sizing: border-box;
@@ -354,8 +349,7 @@ p {
   box-sizing: border-box;
 }
 /* line 2, ../sass/mixins.sass */
-.course--module:before,
-.course--module:after {
+.course--module:before, .course--module:after {
   content: " ";
   display: table;
 }
@@ -484,8 +478,7 @@ p {
   font-family: "Cousine";
 }
 /* line 2, ../sass/mixins.sass */
-.course--description li:before,
-.course--description li:after {
+.course--description li:before, .course--description li:after {
   content: " ";
   display: table;
 }
@@ -726,35 +719,4 @@ input:focus {
 .button-secondary:hover {
   color: #63537d;
   box-shadow: 0 0 0 2px #63537d inset;
-}
-
-/* adds additional padding to the bottom of an element */
-.pad-bottom {
-  padding-bottom: 40px;
-}
-
-/* added additional class name for header elements */
-.signout {
-  margin-top: 60px;
-}
-
-/* styles the signed in user's name in the header */
-.header nav span {
-  color: #fff;
-  margin-left: 20px;
-}
-
-/* styles the validation errors */
-.validation--errors--label {
-  color: #7c689b;
-  font-size: 28px;
-}
-.validation-errors ul {
-  color: #7c689b;
-  padding: 15px 0 40px 10px;
-}
-
-/* reduce bottom margin on the course description textarea element */
-.course--description textarea {
-  margin-bottom: 20px;
 }
