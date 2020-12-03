@@ -14,12 +14,15 @@ import Courses from './components/Courses';
 import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
+import Authenticated from './components/Authenticated';
 
 
 // New import
 import withContext from './Context';
 
+// connect UserSignUp and UsersignIn to Context
 const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
 
 export default () => (
   <Router>
@@ -28,12 +31,13 @@ export default () => (
 
       <Switch>
         <Route exact path="/" render={(props)=> <Courses {...props}/>}/>
+        <Route path="/authenticated" component={Authenticated} />
+        <Route path="/signup" component={UserSignUpWithContext} />
+        <Route path="/signin" component={UserSignInWithContext} />
+        <Route path="/signout" component={UserSignOut} />
         <Route exact path="/courses/create"    render={(props) => <CreateCourse {...props} />} />      
         <Route exact path="/courses/:id"    render={(props)=> <CourseDetail {...props}/>} />   
         <Route exact path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
-        <Route path="/signin" component={UserSignIn} />
-        <Route path="/signup" component={UserSignUpWithContext} />
-        <Route path="/signout" component={UserSignOut} />
         <Route component={NotFound} />
       </Switch>
     </div>

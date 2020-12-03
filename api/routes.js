@@ -14,11 +14,15 @@ function asyncHandler(cb) {
       await cb(req, res, next);
     } catch (err) {
       console.log("============= ERROR ==============");
-      console.log(err);
+      // console.log(err.message);
       // res.status(400).json({ message: err.message });
       if (err.name === "SequelizeValidationError") {
-        res.status(400).json({ message: err.message });
+        // console.log(err.errors)
+        const arr_errors = err.errors.map( error => error.message);
+        // console.log(arr_errors)
+        res.status(400).json({ message: arr_errors });
       } else if (err.fields[0] === "emailAddress") {
+        console.log(err.message)
         res.status(400).json({ message: err.message });
       } else {
         next();
