@@ -21,13 +21,15 @@ import Authenticated from './components/Authenticated';
 import withContext from './Context';
 
 // connect UserSignUp and UsersignIn to Context
+const HeaderWithContext = withContext(Header)
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+
 
 export default () => (
   <Router>
     <div>
-      <Header />
+      <HeaderWithContext />
 
       <Switch>
         <Route exact path="/" render={(props)=> <Courses {...props}/>}/>
