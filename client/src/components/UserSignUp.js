@@ -117,7 +117,11 @@ export default class UserSignUp extends Component {
           console.log( "ERRORS", typeof errors)
           this.setState( { errors: errors.message });
         } else {
-          console.log(`${firstName} ${lastName} is successfully signed up and authenticated!`);
+          context.actions.signIn(emailAddress, password)
+            .then(() => {
+              this.props.history.push('/authenticated')
+            })
+          // console.log(`${firstName} ${lastName} is successfully signed up and authenticated!`);
         }
     })
       .catch( err => {

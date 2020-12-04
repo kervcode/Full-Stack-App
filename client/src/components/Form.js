@@ -18,8 +18,6 @@ export default (props) => {
     event.preventDefault();
     cancel();
   }
-  
-  console.log(props);
 
   return (
     <div>
