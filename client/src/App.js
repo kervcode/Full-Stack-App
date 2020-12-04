@@ -19,11 +19,14 @@ import Authenticated from './components/Authenticated';
 
 // New import
 import withContext from './Context';
+import PrivateRoute from './PrivateRoute';
 
-// connect UserSignUp and UsersignIn to Context
+// connect Header, Authenticated, UserSignUp and UsersignIn to Context
 const HeaderWithContext = withContext(Header)
+const AuthWithContext= withContext(Authenticated);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 
 
 export default () => (
@@ -33,10 +36,10 @@ export default () => (
 
       <Switch>
         <Route exact path="/" render={(props)=> <Courses {...props}/>}/>
-        <Route path="/authenticated" component={Authenticated} />
+        <PrivateRoute path="/authenticated" component={AuthWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
-        <Route path="/signout" component={UserSignOut} />
+        <Route path="/signout" component={UserSignOutWithContext} />
         <Route exact path="/courses/create"    render={(props) => <CreateCourse {...props} />} />      
         <Route exact path="/courses/:id"    render={(props)=> <CourseDetail {...props}/>} />   
         <Route exact path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
