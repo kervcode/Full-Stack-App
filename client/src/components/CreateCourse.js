@@ -44,7 +44,11 @@ class CreateCourse extends Component {
               </ul>
             </div>
           </div>
-          <div class="grid-100 pad-bottom"><button class="button" type="submit">Create Course</button><button class="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button></div>
+          <div class="grid-100 pad-bottom">
+            <button class="button" type="submit">Create Course</button>
+            <button class="button button-secondary" onclick="event.preventDefault(); location.href='/';">Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

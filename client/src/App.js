@@ -29,6 +29,7 @@ const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 
+
 export default () => (
   <Router>
     <div>
@@ -40,9 +41,9 @@ export default () => (
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
-        <Route exact path="/courses/create"    render={(props) => <CreateCourse {...props} />} />      
-        <Route exact path="/courses/:id"    render={(props)=> <CourseDetail {...props}/>} />   
-        <Route exact path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
+        <Route path="/courses/create"    render={(props) => <CreateCourse {...props} />} />      
+        <Route path="/courses/:id"    render={(props)=> <CourseDetail {...props} />} />   
+        <Route path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
         <Route component={NotFound} />
       </Switch>
     </div>
