@@ -29,7 +29,7 @@ export default class Data {
     
     if (response.status === 200) {
       return response.json().then(data => {
-         console.log("data", data)
+        //  console.log("data", data)
          return data
       });
     }
@@ -44,6 +44,22 @@ export default class Data {
   async createUser(user) {
     console.log("user", user);
     const response = await this.api('/users', 'POST', user);
+    if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data;
+      });
+    }
+    else {
+      throw new Error();
+    }
+  }
+  
+  async createCourse(course) {
+    const response = await this.api('/courses', 'POST', course);
+    
     if (response.status === 201) {
       return [];
     }

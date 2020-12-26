@@ -26,7 +26,8 @@ class CourseDetail extends Component {
   render() { 
     // console.log(this.props.match.params.id)
     const course = this.state.data
-    console.log(course.Owner)
+    //  console.log(course)
+    // console.log(course.Owner)
     return ( 
       <div>
       <div className="actions--bar">

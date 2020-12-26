@@ -7,7 +7,7 @@ export default class Header extends React.PureComponent {
     const { context } = this.props;
     const authUser = context.authenticatedUser;
     
-    console.log(context)
+    // console.log(context)
     
     return (
       <div className="header">

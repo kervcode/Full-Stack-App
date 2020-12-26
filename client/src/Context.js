@@ -28,6 +28,7 @@ export class Provider extends Component {
         signOut: this.signOut
       }
     }
+    
     return (
       <Context.Provider value={value}>
         {this.props.children}
