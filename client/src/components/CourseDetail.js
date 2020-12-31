@@ -24,6 +24,12 @@ class CourseDetail extends Component {
       
   }
   render() { 
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+
+    console.log(authUser)
+
+
     // console.log(this.props.match.params.id)
     const course = this.state.data
     //  console.log(course)
@@ -31,12 +37,30 @@ class CourseDetail extends Component {
     return ( 
       <div>
       <div className="actions--bar">
-        <div className="bounds">
-          <div className="grid-100"><span>
-            <Link className="button" to={`/Courses/${course.id}/Update`}>Update Course</Link>
-            <Link className="button" to="#">Delete Course</Link></span>
-            <Link className="button button-secondary" to="/">Return to List</Link></div>
-        </div>
+      
+        {
+          //  // CREATE LOGIC TO RENDER UPDATE AND DELETE BUTTON ONLY IF THERE IS AN AUTHENTICATED USER.
+          authUser ?
+            <React.Fragment>
+            <div className="bounds">
+            <div className="grid-100">
+                <span>
+                  <Link className="button" to={`/Courses/${course.id}/Update`}>Update Course</Link>
+                  <Link className="button" to="#">Delete Course</Link>
+                </span>
+              <Link className="button button-secondary" to="/">Return to List</Link></div>
+          </div>
+            </React.Fragment>
+          :
+            <React.Fragment>
+              <div className="bounds">
+                <div className="grid-100">
+                  <Link className="button button-secondary" to="/">Return to List</Link></div>
+              </div>
+            </React.Fragment>
+        }
+      
+
       </div>
       <div className="bounds course--detail">
         <div className="grid-66">
