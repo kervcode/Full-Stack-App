@@ -58,6 +58,8 @@ export default class CreateCourse extends Component {
                                 id="description" 
                                 name="description" 
                                 className="" 
+                                value={this.description}
+                                onChange={this.change}
                                 placeholder="Course description...">                                  
                             </textarea>
                           </div>
@@ -90,6 +92,7 @@ export default class CreateCourse extends Component {
                                   className="" 
                                   placeholder="List materials..."
                                   onChange={this.change}
+                                  
                                 ></textarea>
                               </div>
                           </li>
@@ -138,8 +141,8 @@ export default class CreateCourse extends Component {
       materialsNeeded,
     }
     
-    console.log(context)
-    console.log(this.props)
+    // console.log(context)
+    // console.log(this.props)
     console.log(query)
   }
   

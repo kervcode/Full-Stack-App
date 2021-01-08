@@ -26,13 +26,15 @@ class CourseDetail extends Component {
   render() { 
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-
-    console.log(authUser)
+    
 
 
     // console.log(this.props.match.params.id)
     const course = this.state.data
-    //  console.log(course)
+
+    
+    // console.log(typeof course)
+    //  console.log(typeof course.Owner)
     // console.log(course.Owner)
     return ( 
       <div>
@@ -67,7 +69,7 @@ class CourseDetail extends Component {
           <div className="course--header">
             <h4 className="course--label">Course</h4>
             <h3 className="course--title">{course.title}</h3>
-            <p>By {}</p>
+            <p>By {  }</p>
           </div>
           <div className="course--description">
           {course.description}
