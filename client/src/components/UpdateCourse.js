@@ -4,24 +4,37 @@ import Form from './Form';
 
 class UpdateCourse extends Component {
   state = {
-    data: [],
     title: '',
     description: '',
     estimatedTime: '',
     materialsNeeded: '',
+    ownerFirstName: '',
+    ownerLastName: '',
     errors: [],
   }
 
   componentDidMount() {
     this.getCourseDetail();
-    console.log(this.data)
   }
 
+  /**
+   * use axios to submit a get request for a course by it's ID
+   * then set the response data to the state object
+   */
   getCourseDetail = () => {
     const id = this.props.match.params.id;
-    console.log(id)
+    // console.log(id);
     axios.get(`http://localhost:5000/api/courses/${id}`)
-    .then((response) => this.setState({data: response.data}))
+    .then((response) => {
+      console.log(response.data)
+      this.setState({
+        title: response.data.title,
+        description: response.data.description,
+        estimatedTime: response.data.estimatedTime,
+        materialsNeeded: response.data.materialsNeeded,
+        ownerFirstName: response.data.Owner.firstName,
+        ownerLastName: response.data.Owner.lastName
+    })})
     .catch(error => console.log('Error fetching course detail', error))
   }
 
@@ -31,11 +44,21 @@ class UpdateCourse extends Component {
       description,
       estimatedTime,
       materialsNeeded,
+      ownerFirstName,
+      ownerLastName,
       errors
     } = this.state;
+    
+    
+/**
+ * Render an update form that allows user the user a course that he owns
+ */
+const { context } = this.props;
+const authUser = context.authenticatedUser;
 
-
-    console.log(this.data)
+console.log(authUser)
+    
+    
     return ( 
       <div className="bounds course--detail">
         <h1>Update Course</h1>
@@ -58,10 +81,10 @@ class UpdateCourse extends Component {
                                     type="text" 
                                     className="input-title course--title--input" 
                                     placeholder="Course title..."
-                                    value={this.title}
+                                    defaultValue={title}
                                     onChange={this.change} />
                             </div>
-                          <p>By Joe Smith</p>
+                          <p>By {ownerFirstName} {ownerLastName}</p>
                         </div>
                         
                         <div className="course--description">
@@ -70,7 +93,7 @@ class UpdateCourse extends Component {
                                   id="description" 
                                   name="description" 
                                   className="" 
-                                  value={this.description}
+                                  value={description}
                                   onChange={this.change}
                                   placeholder="Course description...">                                  
                               </textarea>
@@ -89,7 +112,7 @@ class UpdateCourse extends Component {
                                     type="text" 
                                     className="course--time--input"
                                     placeholder="Hours" 
-                                    value={this.estimatedTime}
+                                    defaultValue={estimatedTime}
                                     onChange={this.change}                                   
                                   />
                               </div>
@@ -102,6 +125,7 @@ class UpdateCourse extends Component {
                                     name="materialsNeeded" 
                                     className="" 
                                     placeholder="List materials..."
+                                    value={materialsNeeded}
                                     onChange={this.change}
                                   ></textarea>
                                 </div>
@@ -117,6 +141,56 @@ class UpdateCourse extends Component {
           </div>
       </div>
     );
+  }
+  
+  change = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState(() => {
+      return {
+        [name]: value
+      };
+    });
+  }
+  
+  submit = () => {
+    const { context } = this.props;
+    
+    
+    const {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      ownerFirstName,
+      ownerLastName,
+    } = this.state;
+    
+    const course = {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      ownerFirstName,
+      ownerLastName,
+    }
+    
+    console.log(course) 
+    
+    if (course.title === '' || course.description === '') {
+      console.log('Empty')
+    } else {
+      console.log('not empty')
+    }
+    
+    
+    
+  }
+  
+  
+  cancel = () => {
+    this.props.history.push('/');
   }
 }
  
