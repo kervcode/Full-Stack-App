@@ -1,14 +1,15 @@
 import React, { Component} from 'react';
-import queryString from 'query-string';
 import Form from './Form'
 import axios from 'axios'
 
 export default class CreateCourse extends Component {
   state = {
+      userId: '',
       title: '',
       description: '',
       estimatedTime: '',
       materialsNeeded: '',
+      
       errors: [],
     }  
   
@@ -23,7 +24,13 @@ export default class CreateCourse extends Component {
       errors
     } = this.state;
   
-        console.log(this.props)
+        // console.log(this.props)
+    
+        
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    
+    console.log(authUser.firstName )
         
     return ( 
       <div className="bounds course--detail">
@@ -49,7 +56,7 @@ export default class CreateCourse extends Component {
                                   value={this.title}
                                   onChange={this.change} />
                           </div>
-                        <p>By Joe Smith</p>
+                        <p>By {authUser.firstName} {authUser.lastName}</p>
                       </div>
                       
                       <div className="course--description">
@@ -124,7 +131,6 @@ export default class CreateCourse extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const query = queryString.parse(this.props.location.search)
     
     const {
       title,
@@ -143,7 +149,20 @@ export default class CreateCourse extends Component {
     
     // console.log(context)
     // console.log(this.props)
-    console.log(query)
+    console.log(course)
+    
+    context.data.createCourse(course)
+    .then( errors => {
+      if (errors.message) {
+        this.setState( { errors: errors.message })
+      } else {
+        this.props.history.push('/')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      this.props.history.push('/error');
+    })
   }
   
   cancel = () => {
