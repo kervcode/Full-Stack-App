@@ -28,7 +28,8 @@ const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 const CourseDetailWithContext = withContext(CourseDetail);
-const CreateCourseWithContext = withContext(CreateCourse)
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse)
 
 
 
@@ -44,8 +45,8 @@ export default () => (
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
         <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />      
-        <Route path="/courses/:id"    component={CourseDetailWithContext} />   
-        <PrivateRoute path="/courses/:id/update"    render={(props) => <UpdateCourse {...props}/>} /> 
+        <Route exact path="/courses/:id"    component={CourseDetailWithContext} />   
+        <PrivateRoute exact path="/courses/:id/update"    component={UpdateCourseWithContext} /> 
         <Route component={NotFound} />
       </Switch>
     </div>
