@@ -57,7 +57,7 @@ export default class Data {
     }
   }
   
-   async createCourse(course) {
+   async UpdateCourse(course) {
     const response = await this.api('/courses', 'PUT', course);
     
     if (response.status === 201) {
