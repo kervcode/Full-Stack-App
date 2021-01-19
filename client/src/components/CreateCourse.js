@@ -9,7 +9,6 @@ export default class CreateCourse extends Component {
       description: '',
       estimatedTime: '',
       materialsNeeded: '',
-      
       errors: [],
     }  
   
@@ -17,10 +16,6 @@ export default class CreateCourse extends Component {
  
   render() {    
     const {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
       errors
     } = this.state;
   
@@ -130,7 +125,13 @@ export default class CreateCourse extends Component {
   
 
   submit = () => {
+   
     const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    
+     console.log(authUser)
+    const emailAddress = authUser.emailAddress;
+    const password = authUser.password;
     
     const {
       title,
@@ -141,28 +142,34 @@ export default class CreateCourse extends Component {
     
     // create new course
     const course = {
-      title,
-      description,
-      estimatedTime,
-      materialsNeeded,
+      title: title,
+      description: description,
+      estimatedTime: estimatedTime,
+      materialsNeeded: materialsNeeded,
+      userId: authUser.id
     }
     
-    // console.log(context)
-    // console.log(this.props)
     console.log(course)
     
-    context.data.createCourse(course)
-    .then( errors => {
-      if (errors.message) {
-        this.setState( { errors: errors.message })
-      } else {
-        this.props.history.push('/')
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      this.props.history.push('/error');
-    })
+    context.data.createCourse(course, emailAddress, password)
+      .then(
+        errors => {
+          if(errors) {
+            this.setState({ errors: errors.message })
+          } else {
+            console.log('Course created sussessfully');
+            this.props.history.push("/")
+          }
+        }
+      )
+      .catch( err => {
+        console.log(err);
+        this.props.history.push('/error');
+      })
+    // if(course.title === '') {
+    //   this.setState({errors: ['Course title cannot be empty']})
+    // }
+    
   }
   
   cancel = () => {
