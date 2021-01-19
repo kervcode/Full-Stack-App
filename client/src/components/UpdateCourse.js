@@ -4,6 +4,8 @@ import Form from './Form';
 
 class UpdateCourse extends Component {
   state = {
+    courseId: '',
+    userId: '',
     title: '',
     description: '',
     estimatedTime: '',
@@ -22,19 +24,25 @@ class UpdateCourse extends Component {
    * then set the response data to the state object
    */
   getCourseDetail = () => {
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    // console.log(authUser)
     const id = this.props.match.params.id;
     // console.log(id);
     axios.get(`http://localhost:5000/api/courses/${id}`)
     .then((response) => {
-      console.log(response.data)
       this.setState({
+        userId: response.data.Owner.id,
         title: response.data.title,
         description: response.data.description,
         estimatedTime: response.data.estimatedTime,
         materialsNeeded: response.data.materialsNeeded,
         ownerFirstName: response.data.Owner.firstName,
         ownerLastName: response.data.Owner.lastName
-    })})
+    });
+    console.log("data", response.data)
+    // console.log(this.state)  
+  })
     .catch(error => console.log('Error fetching course detail', error))
   }
 
@@ -52,13 +60,7 @@ class UpdateCourse extends Component {
     
 /**
  * Render an update form that allows user the user a course that he owns
- */
-const { context } = this.props;
-const authUser = context.authenticatedUser;
-
-console.log(authUser)
-    
-    
+ */    
     return ( 
       <div className="bounds course--detail">
         <h1>Update Course</h1>
@@ -155,34 +157,45 @@ console.log(authUser)
   }
   
   submit = () => {
-    const { context } = this.props;
     
+    
+    const { context } = this.props;    
+    const authUser = context.authenticatedUser;
+
+    const emailAddress = authUser.emailAddress;
+    const password = authUser.password;
     
     const {
+      userId,
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      ownerFirstName,
-      ownerLastName,
     } = this.state;
     
     const course = {
+      userId,
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      ownerFirstName,
-      ownerLastName,
     }
     
-    console.log(course) 
+    // console.log(authUser) 
+    // console.log(course)
     
-    if (course.title === '' || course.description === '') {
-      console.log('Empty')
-    } else {
-      console.log('not empty')
-    }
+    const id = this.props.match.params.id;
+    // console.log(id)
+    
+    context.data.updateCourse(course, id, emailAddress, password)
+      .then( errors => {
+        if(errors.message) {
+            this.setState({ errors: errors.message })
+        } else {
+            console.log('Course updated sussessfully');
+            this.props.history.push("/")
+          }
+      })
     
     
     
