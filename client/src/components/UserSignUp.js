@@ -13,6 +13,11 @@ export default class UserSignUp extends Component {
   }
 
   render() {
+    
+    const { context } = this.props;
+    const authUser = context.authenticatedUser;
+    
+    
     const {
       firstName,
       lastName,
