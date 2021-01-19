@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
+import ReactMarkdown from 'react-markdown'
+import {render} from 'react-dom'
 import axios from 'axios'
 
 class CourseDetail extends Component {
@@ -75,8 +77,10 @@ class CourseDetail extends Component {
             <p>By {  }</p>
           </div>
           <div className="course--description">
-          {course.description}
-             </div>
+              <ReactMarkdown>
+              {course.description}
+              </ReactMarkdown>
+          </div>
         </div>
         <div className="grid-25 grid-right">
           <div className="course--stats">
@@ -88,7 +92,9 @@ class CourseDetail extends Component {
               <li className="course--stats--list--item">
                 <h4>Materials Needed</h4>
                 <ul>
-                  {course.materialsNeeded}
+                  <ReactMarkdown>
+                    {course.materialsNeeded}
+                  </ReactMarkdown>
                 </ul>
               </li>
             </ul>
