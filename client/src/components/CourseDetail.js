@@ -31,11 +31,14 @@ class CourseDetail extends Component {
 
     // console.log(this.props.match.params.id)
     const course = this.state.data
+    
+    const {firstName, lastName } = this.state.data;
+    
 
     
     // console.log(typeof course)
     //  console.log(typeof course.Owner)
-    // console.log(course.Owner)
+    console.log(firstName)
     return ( 
       <div>
       <div className="actions--bar">
