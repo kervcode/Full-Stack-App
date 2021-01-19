@@ -57,8 +57,10 @@ export default class Data {
     }
   }
   
-   async UpdateCourse(course) {
-    const response = await this.api('/courses', 'PUT', course);
+   async updateCourse(course, id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, 'PUT', course, true, {
+      emailAddress, password
+    });
     
     if (response.status === 201) {
       return [];
@@ -73,8 +75,10 @@ export default class Data {
     }
   }
   
-  async createCourse(course) {
-    const response = await this.api('/courses', 'POST', course);
+  async createCourse(course, emailAddress, password) {
+    const response = await this.api('/courses', 'POST', course, true, {
+      emailAddress, password
+    });
     
     if (response.status === 201) {
       return [];
