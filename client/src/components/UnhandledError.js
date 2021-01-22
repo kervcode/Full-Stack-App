@@ -1,10 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+const UnhandledError = () => {
   const history = useHistory();
-    console.log(history)
-
     const handleClick = () => {
         history.push("/");
     }
@@ -19,3 +17,7 @@ export default () => {
     </div>
   )
 };
+
+export default UnhandledError;
+
+

@@ -2,7 +2,8 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -15,6 +16,7 @@ import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import Authenticated from './components/Authenticated';
+import UnhandledError from './components/UnhandledError';
 
 
 // New import
@@ -50,7 +52,7 @@ export default () => (
         <PrivateRoute exact path="/courses/:id/update"    component={UpdateCourseWithContext} /> 
         <Route path="/forbidden" component={Forbidden} />
         <Route path="/notfound" component={NotFound} />
-        <Route component={Error} />
+        <Route component={UnhandledError} />
       </Switch>
     </div>
   </Router>

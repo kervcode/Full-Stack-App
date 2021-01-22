@@ -17,8 +17,6 @@ class UpdateCourse extends Component {
 
   componentDidMount() {
     this.getCourseDetail();
-
-    console.log(typeof this.getCourseDetail)
   }
 
   /**
@@ -54,11 +52,11 @@ class UpdateCourse extends Component {
         });
       }
     })
-      .catch(error => {
-        if(error.response.status === 404) {
-          this.props.history.push('/notfound')
-        }
-      })
+    .catch(error => {
+      if(error.response.status === 404) {
+        this.props.history.push('/notfound')
+      }
+    })
     
   }
 
@@ -196,14 +194,12 @@ class UpdateCourse extends Component {
     }
     
     const id = this.props.match.params.id;
-    // console.log(id)
     
     context.data.updateCourse(course, id, emailAddress, password)
       .then( errors => {
         if(errors){
           if(errors.message) {
             this.setState({ errors: errors.message })
-            console.log(errors.message)
         }
             console.log('Course updated sussessfully');
             this.props.history.push("/")

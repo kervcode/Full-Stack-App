@@ -35,7 +35,9 @@ class CourseDetail extends Component {
     })
     .catch(error => {
         if(error.response.status === 404) {
-          this.props.history.push('/notfound')
+          this.props.history.push('/notfound');
+        } else {
+          this.props.history.push('/error');
         }
       })
     }

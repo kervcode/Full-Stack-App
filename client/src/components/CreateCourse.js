@@ -17,14 +17,9 @@ export default class CreateCourse extends Component {
     const {
       errors
     } = this.state;
-  
-        // console.log(this.props)
-    
         
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    
-    console.log(authUser.firstName )
         
     return ( 
       <div className="bounds course--detail">
@@ -127,8 +122,7 @@ export default class CreateCourse extends Component {
    
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    
-     console.log(authUser)
+
     const emailAddress = authUser.emailAddress;
     const password = authUser.password;
     
@@ -147,8 +141,7 @@ export default class CreateCourse extends Component {
       materialsNeeded: materialsNeeded,
       userId: authUser.id
     }
-    
-    console.log(course)
+
     
     context.data.createCourse(course, emailAddress, password)
       .then(
@@ -162,13 +155,8 @@ export default class CreateCourse extends Component {
         }
       )
       .catch( err => {
-        console.log(err);
         this.props.history.push('/error');
       })
-    // if(course.title === '') {
-    //   this.setState({errors: ['Course title cannot be empty']})
-    // }
-    
   }
   
   cancel = () => {

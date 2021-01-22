@@ -18,7 +18,13 @@ class Courses extends Component {
   getData = () => {
     axios.get('http://localhost:5000/api/courses')
       .then((response)=> this.setState({data: response.data}))
-      .catch(error => console.log('Error fetching data from API.', error))
+      .catch(error => {
+        if(error.response.status === 404) {
+          this.props.history.push('/notfound');
+        } else {
+          this.props.history.push('/error');
+        }
+      })
   }
 
   // Render course component
