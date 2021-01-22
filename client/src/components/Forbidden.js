@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 const Forbidden = () => {
 
     const history = useHistory();
-    console.log(history)
 
     const handleClick = () => {
         history.push("/");

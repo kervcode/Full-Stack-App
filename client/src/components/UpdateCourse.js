@@ -55,6 +55,10 @@ class UpdateCourse extends Component {
     .catch(error => {
       if(error.response.status === 404) {
         this.props.history.push('/notfound')
+      } else if(error.response.status === 403) {
+        this.props.history.push('/forbidden')
+      } else {
+        this.props.history.push('/error')
       }
     })
     

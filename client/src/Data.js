@@ -89,12 +89,12 @@ export default class Data {
       });
     }
     else {
-      // throw new Error();
-      try {
-        throw new Error('Whoops!')
-      } catch (e) {
-        console.error(e.name + ': ' + e.message)
-      }
+      throw new Error();
+      // try {
+      //   throw new Error('Whoops!')
+      // } catch (e) {
+      //   console.error(e.name + ': ' + e.message)
+      // }
     }
   }
 
