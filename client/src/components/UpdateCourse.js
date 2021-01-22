@@ -17,6 +17,8 @@ class UpdateCourse extends Component {
 
   componentDidMount() {
     this.getCourseDetail();
+
+    console.log(typeof this.getCourseDetail)
   }
 
   /**
@@ -24,26 +26,40 @@ class UpdateCourse extends Component {
    * then set the response data to the state object
    */
   getCourseDetail = () => {
+
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    // console.log(authUser)
+    const currentUserEmail = authUser.emailAddress;
+    // console.log("Context:", context);
     const id = this.props.match.params.id;
-    // console.log(id);
-    axios.get(`http://localhost:5000/api/courses/${id}`)
-    .then((response) => {
-      this.setState({
-        userId: response.data.Owner.id,
-        title: response.data.title,
-        description: response.data.description,
-        estimatedTime: response.data.estimatedTime,
-        materialsNeeded: response.data.materialsNeeded,
-        ownerFirstName: response.data.Owner.firstName,
-        ownerLastName: response.data.Owner.lastName
-    });
-    console.log("data", response.data)
-    // console.log(this.state)  
-  })
-    .catch(error => console.log('Error fetching course detail', error))
+  
+    
+    axios
+      .get(`http://localhost:5000/api/courses/${id}`)
+      .then((response) => {
+
+        const ownerEmail = response.data.Owner.emailAddress;
+
+        if (ownerEmail !== currentUserEmail) {
+          this.props.history.push('/forbidden')
+        } else {
+        this.setState({
+          userId: response.data.Owner.id,
+          title: response.data.title,
+          description: response.data.description,
+          estimatedTime: response.data.estimatedTime,
+          materialsNeeded: response.data.materialsNeeded,
+          ownerFirstName: response.data.Owner.firstName,
+          ownerLastName: response.data.Owner.lastName
+        });
+      }
+    })
+      .catch(error => {
+        if(error.response.status === 404) {
+          this.props.history.push('/notfound')
+        }
+      })
+    
   }
 
   render() { 
@@ -156,9 +172,7 @@ class UpdateCourse extends Component {
     });
   }
   
-  submit = () => {
-    
-    
+  submit = () => {  
     const { context } = this.props;    
     const authUser = context.authenticatedUser;
 
@@ -181,29 +195,34 @@ class UpdateCourse extends Component {
       materialsNeeded,
     }
     
-    // console.log(authUser) 
-    // console.log(course)
-    
     const id = this.props.match.params.id;
     // console.log(id)
     
     context.data.updateCourse(course, id, emailAddress, password)
       .then( errors => {
-        if(errors.message) {
+        if(errors){
+          if(errors.message) {
             this.setState({ errors: errors.message })
-        } else {
+            console.log(errors.message)
+        }
             console.log('Course updated sussessfully');
             this.props.history.push("/")
-          }
+        }
       })
+      .catch(error => {
+        if(error.response) {
+          this.props.history.push('/notfound')
+        }
+      })
+    }
     
     
     
-  }
+  
   
   
   cancel = () => {
-    this.props.history.push('/');
+    this.props.history.go(-1);
   }
 }
  

@@ -20,6 +20,7 @@ import Authenticated from './components/Authenticated';
 // New import
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
+import Forbidden from './components/Forbidden';
 
 // connect Header, Authenticated, UserSignUp and UsersignIn to Context
 const HeaderWithContext = withContext(Header)
@@ -47,7 +48,9 @@ export default () => (
         <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />      
         <Route exact path="/courses/:id"    component={CourseDetailWithContext} />   
         <PrivateRoute exact path="/courses/:id/update"    component={UpdateCourseWithContext} /> 
-        <Route component={NotFound} />
+        <Route path="/forbidden" component={Forbidden} />
+        <Route path="/notfound" component={NotFound} />
+        <Route component={Error} />
       </Switch>
     </div>
   </Router>

@@ -12,12 +12,7 @@ export default class UserSignUp extends Component {
     errors: [],
   }
 
-  render() {
-    
-    const { context } = this.props;
-    const authUser = context.authenticatedUser;
-    
-    
+  render() {    
     const {
       firstName,
       lastName,

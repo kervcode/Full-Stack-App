@@ -11,12 +11,11 @@ export default () => {
 
   return (
     <div className="bounds">
-      <h1>Not Found</h1>
-      <p>Sorry! We couldn't find the page you're looking for.</p>
+      <h1>Error</h1>
+      <p>Sorry! We just encountered an unexpected error.</p>
       <div className="pad-bottom">
           <button className="button" onClick={handleClick} type="submit"> Return </button>
       </div>
     </div>
   )
 };
-

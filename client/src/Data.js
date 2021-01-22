@@ -62,7 +62,7 @@ export default class Data {
       emailAddress, password
     });
     
-    if (response.status === 201) {
+    if (response.status === 204) {
       return [];
     }
     else if (response.status === 400) {
@@ -81,6 +81,28 @@ export default class Data {
     });
     
     if (response.status === 201) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data;
+      });
+    }
+    else {
+      // throw new Error();
+      try {
+        throw new Error('Whoops!')
+      } catch (e) {
+        console.error(e.name + ': ' + e.message)
+      }
+    }
+  }
+
+
+  async deleteCourse(course, id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "DELETE", course, true, { emailAddress, password});
+    
+    if (response.status === 204) {
       return [];
     }
     else if (response.status === 400) {

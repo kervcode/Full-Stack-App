@@ -25,7 +25,8 @@ export class Provider extends Component {
       data: this.data,
       actions: { //
         signIn: this.signIn,
-        signOut: this.signOut
+        signOut: this.signOut,
+        goBack: this.previousPage
       }
     }
     
@@ -60,6 +61,10 @@ export class Provider extends Component {
       }
     });
     Cookies.remove('authenticatedUser');
+  }
+
+  previousPage = () => {
+    this.history.props.go(-1)
   }
 }
 
