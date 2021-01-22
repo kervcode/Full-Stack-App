@@ -12,6 +12,7 @@ class CourseDetail extends Component {
       materialsNeeded: '',
       ownerFirstName: '',
       ownerLastName: '',
+      ownerEmailAddress: '',
     }
   
   // When Component mounted
@@ -23,6 +24,7 @@ class CourseDetail extends Component {
     const id = this.props.match.params.id;
     axios.get(`http://localhost:5000/api/courses/${id}`)
     .then((response) => {
+      // console.log(response.data)
       this.setState({
         id: response.data.id,
         title: response.data.title,
@@ -31,19 +33,25 @@ class CourseDetail extends Component {
         materialsNeeded: response.data.materialsNeeded,
         ownerFirstName: response.data.Owner.firstName,
         ownerLastName: response.data.Owner.lastName,  
+        ownerEmailAddress: response.data.Owner.emailAddress
       })
     })
     .catch(error => {
-        if(error.response.status === 404) {
+        console.log(error)
+        if(error.status === 404) {
           this.props.history.push('/notfound');
-        } else {
+        } else if(error.status === 403){
+          this.props.history.push('/forbidden');
+        }
+         else {
           this.props.history.push('/error');
         }
       })
     }
   render() { 
     const { context } = this.props;
-    const authUser = context.authenticatedUser;
+    const authUserEmailAddress = context.authenticatedUser.emailAddress;
+    // console.log(authUserEmailAddress)
     
     const {
       id,
@@ -53,6 +61,7 @@ class CourseDetail extends Component {
       materialsNeeded,
       ownerFirstName,
       ownerLastName,
+      ownerEmailAddress
     } = this.state; 
 
   
@@ -62,7 +71,7 @@ class CourseDetail extends Component {
       
         {
           // CREATE LOGIC TO RENDER UPDATE AND DELETE BUTTON ONLY IF THERE IS AN AUTHENTICATED USER.
-          authUser ?
+          authUserEmailAddress === ownerEmailAddress ?
             <React.Fragment>
             <div className="bounds">
             <div className="grid-100">
