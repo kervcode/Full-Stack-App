@@ -113,7 +113,7 @@ export default class UserSignUp extends Component {
     
     console.log(user);
     
-    if (user.password  !== user.confirm) {
+    if (user.password  !== user.confirmPassword) {
        this.setState({ errors: ['Password do not match']});
     } else {
       context.data.createUser(user)
