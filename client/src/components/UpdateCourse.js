@@ -97,7 +97,7 @@ class UpdateCourse extends Component {
                                     type="text" 
                                     className="input-title course--title--input" 
                                     placeholder="Course title..."
-                                    defaultValue={title}
+                                    value={title}
                                     onChange={this.change} />
                             </div>
                           <p>By {ownerFirstName} {ownerLastName}</p>
@@ -128,7 +128,7 @@ class UpdateCourse extends Component {
                                     type="text" 
                                     className="course--time--input"
                                     placeholder="Hours" 
-                                    defaultValue={estimatedTime}
+                                    value={estimatedTime}
                                     onChange={this.change}                                   
                                   />
                               </div>
@@ -197,18 +197,15 @@ class UpdateCourse extends Component {
     
     context.data.updateCourse(course, id, emailAddress, password)
       .then( errors => {
-        if(errors){
           if(errors.message) {
             this.setState({ errors: errors.message })
-        }
+          } else {
             console.log('Course updated sussessfully');
             this.props.history.push("/")
-        }
+          }
       })
-      .catch(error => {
-        if(error.response) {
-          this.props.history.push('/notfound')
-        }
+      .catch(err => {
+          this.props.history.push('/error')
       })
     }
     
