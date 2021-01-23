@@ -20,9 +20,10 @@ class UpdateCourse extends Component {
   }
 
   /**
-   * use axios to submit a get request for a course by it's ID
+   * use axios to submit a GET request for a course by it's ID
    * then set the response data to the state object
    */
+  
   getCourseDetail = () => {
 
     const { context } = this.props;
@@ -35,11 +36,9 @@ class UpdateCourse extends Component {
     axios
       .get(`http://localhost:5000/api/courses/${id}`)
       .then((response) => {
-
         const ownerEmail = response.data.Owner.emailAddress;
-
         if (ownerEmail !== currentUserEmail) {
-          this.props.history.push('/forbidden')
+          this.props.history.push('/forbidden');
         } else {
         this.setState({
           userId: response.data.Owner.id,
@@ -53,12 +52,16 @@ class UpdateCourse extends Component {
       }
     })
     .catch(error => {
+      /**
+       * this block catches error messages and redirect the user to 
+       * a specific route according to which error message status code that occurs
+       */
       if(error.response.status === 404) {
-        this.props.history.push('/notfound')
+        this.props.history.push('/notfound');
       } else if(error.response.status === 403) {
-        this.props.history.push('/forbidden')
+        this.props.history.push('/forbidden');
       } else {
-        this.props.history.push('/error')
+        this.props.history.push('/error');
       }
     })
     
@@ -174,6 +177,9 @@ class UpdateCourse extends Component {
     });
   }
   
+ /**
+ * use to update a course.
+ */
   submit = () => {  
     const { context } = this.props;    
     const authUser = context.authenticatedUser;
@@ -181,6 +187,7 @@ class UpdateCourse extends Component {
     const emailAddress = authUser.emailAddress;
     const password = authUser.password;
     
+    // destructuring state values
     const {
       userId,
       title,
@@ -189,6 +196,7 @@ class UpdateCourse extends Component {
       materialsNeeded,
     } = this.state;
     
+    // new course payload
     const course = {
       userId,
       title,
@@ -198,26 +206,33 @@ class UpdateCourse extends Component {
     }
     
     const id = this.props.match.params.id;
+
+    /**
+     * Update a course
+     *
+     * @param {course}  The course payload to update.
+     * @param {id} id of the course to update.
+     * @param {emailAddress} emailAddress of the authenticate user.
+     * @param {password} password of the authenticate user
+     * @return {promise} resolved value is either an array of errors 
+     * (sent from the API if the response is 400), or an empty array (if the response is 201)
+     */
     
     context.data.updateCourse(course, id, emailAddress, password)
       .then( errors => {
           if(errors.message) {
-            this.setState({ errors: errors.message })
+            this.setState({ errors: errors.message });
           } else {
             console.log('Course updated sussessfully');
-            this.props.history.push("/")
+            this.props.history.push("/");
           }
       })
       .catch(err => {
-          this.props.history.push('/error')
+          this.props.history.push('/error');
       })
-    }
-    
-    
-    
-  
-  
-  
+  }
+
+  // return to previousPage
   cancel = () => {
     this.props.history.go(-1);
   }

@@ -14,17 +14,17 @@ class Courses extends Component {
     this.getData();
   }
 
-  // Get all course from backend
+  // Get all course from the api backend
   getData = () => {
     axios.get('http://localhost:5000/api/courses')
       .then((response)=> this.setState({data: response.data}))
       .catch(error => {
-        if(error.status === 403) {
+        if(error.response.status === 403) {
           this.props.history.push('/forbidden');
-        } else if(error.status === 404) {
-          this.props.history.push('/error');
+        } else if(error.response.status === 404) {
+          this.props.history.push('/notfound');
         } else {
-          this.props.history.push('/notfound')
+          this.props.history.push('/error');
         }
       })
   }

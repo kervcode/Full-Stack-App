@@ -117,7 +117,13 @@ export default class CreateCourse extends Component {
     });
   }
   
-
+/**
+ * this submit function triggers when the user clicks on the create course button 
+ * on the create course page.
+ * 
+ * context component is destructured from this.props and from there emailAddress and the password of the user get extracted from 
+ *  context to then use on the createCourse component as the credentials of the authenticated user. 
+ */
   submit = () => {
    
     const { context } = this.props;
@@ -142,7 +148,15 @@ export default class CreateCourse extends Component {
       userId: authUser.id
     }
 
-    
+      /**
+     * create a new course
+     *
+     * @param {course}  The course payload to create.
+     * @param {emailAddress} emailAddress of the authenticate user.
+     * @param {password} password of the authenticate user
+     * @return {promise} resolved value is either an array of errors 
+     * (sent from the API if the response is 400), or an empty array (if the response is 201)
+     */
     context.data.createCourse(course, emailAddress, password)
       .then(
         errors => {
@@ -154,7 +168,12 @@ export default class CreateCourse extends Component {
           }
         }
       )
+         /**
+       * this block catches error messages and redirect the user to 
+       * a specific route according to which error message status code that occurs
+       */
       .catch( err => {
+        console.log(err)
         this.props.history.push('/error');
       })
   }

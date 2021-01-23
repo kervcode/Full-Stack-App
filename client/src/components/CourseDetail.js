@@ -37,16 +37,18 @@ class CourseDetail extends Component {
       })
     })
     .catch(error => {
-        console.log(error)
-        if(error.status === 404) {
-          this.props.history.push('/notfound');
-        } else if(error.status === 403){
-          this.props.history.push('/forbidden');
-        }
-         else {
-          this.props.history.push('/error');
-        }
-      })
+      /**
+       * this block catches error messages and redirect the user to 
+       * a specific route according to which error message status code that occurs
+       */
+      if(error.response.status === 404) {
+        this.props.history.push('/notfound')
+      } else if(error.response.status === 403) {
+        this.props.history.push('/forbidden')
+      } else {
+        this.props.history.push('/error')
+      }
+    })
     }
   render() { 
     const { context } = this.props;
@@ -129,7 +131,8 @@ class CourseDetail extends Component {
     </div>
      );
   }
-
+  
+  // to delete course on the backend
   delete = () => {
     const { context } = this.props;    
     const authUser = context.authenticatedUser;
@@ -137,6 +140,7 @@ class CourseDetail extends Component {
     const emailAddress = authUser.emailAddress;
     const password = authUser.password;
 
+    // destructuring value from state
     const {
       id,
       title,
@@ -145,6 +149,7 @@ class CourseDetail extends Component {
       materialsNeeded,
     } = this.state; 
 
+    // course payload
     const course = {
       id,
       title,
@@ -153,26 +158,30 @@ class CourseDetail extends Component {
       materialsNeeded,
     }
 
+      /**
+     * delete a course
+     *
+     * @param {course}  The course payload to delete.
+     * @param {id} id of the course to delete.
+     * @param {emailAddress} emailAddress of the authenticate user.
+     * @param {password} password of the authenticate user
+     * @return {promise} resolved value is either an array of errors 
+     * (sent from the API if the response is 400), or an empty array (if the response is 201)
+     */
     context.data.deleteCourse(course, id, emailAddress, password)
       .then( errors => {
           if(errors.message) {
-            this.setState({ errors: errors.message })
+            this.setState({ errors: errors.message });
           } else {
-            console.log('Course delete sussessfully');
-            this.props.history.push("/")
+            console.log('Course delete successfully');
+            this.props.history.push("/");
           }
       })
-      .catch(
-        error => {
-          if(error) {
-            console.log(error)
-          }
-          if(error.response) {
-            this.props.history.push('/notfound')
-          }
-        }
-      )
-  }
+      .catch( err => {
+        console.log(err);
+        this.props.history.push('/error');
+      })
+    }
 }
  
 export default CourseDetail;
