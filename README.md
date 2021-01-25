@@ -3,7 +3,7 @@
 ## Full-Stack-App with REST API for school database
 
 In this project, I use React to create client for an existing school database that I create 
-for [project 9](https://github.com/kervcode/REST-API). 
+for REST API project in [unit 9](https://github.com/kervcode/REST-API). 
 
 ## Features
 - use basic authentication to allow users to sign up and sign in
