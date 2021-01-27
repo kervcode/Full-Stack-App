@@ -24,7 +24,6 @@ class CourseDetail extends Component {
     const id = this.props.match.params.id;
     axios.get(`http://localhost:5000/api/courses/${id}`)
     .then((response) => {
-      // console.log(response.data)
       this.setState({
         id: response.data.id,
         title: response.data.title,
@@ -52,8 +51,6 @@ class CourseDetail extends Component {
     }
   render() { 
     const { context } = this.props;
-    const authUserEmailAddress = context.authenticatedUser.emailAddress;
-    // console.log(authUserEmailAddress)
     
     const {
       id,
@@ -73,17 +70,17 @@ class CourseDetail extends Component {
       
         {
           // CREATE LOGIC TO RENDER UPDATE AND DELETE BUTTON ONLY IF THERE IS AN AUTHENTICATED USER.
-          authUserEmailAddress === ownerEmailAddress ?
+          context.authenticatedUser !== null && context.authenticatedUser.emailAddress === ownerEmailAddress ?
             <React.Fragment>
             <div className="bounds">
-            <div className="grid-100">
+              <div className="grid-100">
                 <span>
                   <Link className="button" to={`/Courses/${id}/update`}>Update Course</Link>
                   <button className="button" onClick={this.delete}>Delete Course</button>
                 </span>
-              <Link className="button button-secondary" to="/">Return to List</Link>
+                <Link className="button button-secondary" to="/">Return to List</Link>
+              </div>
             </div>
-          </div>
             </React.Fragment>
           :
             <React.Fragment>
@@ -178,7 +175,6 @@ class CourseDetail extends Component {
           }
       })
       .catch( err => {
-        console.log(err);
         this.props.history.push('/error');
       })
     }
