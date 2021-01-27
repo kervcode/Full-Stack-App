@@ -111,26 +111,21 @@ export default class UserSignUp extends Component {
       confirmPassword,
     };
     
-    console.log(user);
-    
     if (user.password  !== user.confirmPassword) {
        this.setState({ errors: ['Password do not match']});
     } else {
       context.data.createUser(user)
       .then( errors => {
         if (errors.message) {
-          console.log( "ERRORS", typeof errors)
           this.setState( { errors: errors.message });
         } else {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               this.props.history.push('/authenticated')
             })
-          // console.log(`${firstName} ${lastName} is successfully signed up and authenticated!`);
         }
       })
       .catch( err => {
-      console.log(err);
       this.props.history.push('/error');
     })
     }

@@ -42,7 +42,6 @@ export default class Data {
   }
   
   async createUser(user) {
-    console.log("user", user);
     const response = await this.api('/users', 'POST', user);
     if (response.status === 201) {
       return [];
@@ -90,11 +89,6 @@ export default class Data {
     }
     else {
       throw new Error();
-      // try {
-      //   throw new Error('Whoops!')
-      // } catch (e) {
-      //   console.error(e.name + ': ' + e.message)
-      // }
     }
   }
 
