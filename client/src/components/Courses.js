@@ -16,7 +16,7 @@ class Courses extends Component {
 
   // Get all course from the api backend
   getData = () => {
-    axios.get('http://localhost:5000/api/courses')
+    axios.get('https://fullstackreactapp01.herokuapp.com/api/courses')
       .then((response)=> this.setState({data: response.data}))
       .catch(error => {
         if(error.response.status === 403) {
