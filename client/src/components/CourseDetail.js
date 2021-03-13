@@ -22,7 +22,8 @@ class CourseDetail extends Component {
    
   getCourseDetail = () => {
     const id = this.props.match.params.id;
-    axios.get(`http://localhost:5000/api/courses/${id}`)
+    // https://fullstackreactapp01.herokuapp.com/api/courses
+    axios.get(`https://fullstackreactapp01.herokuapp.com/api/courses/${id}`)
     .then((response) => {
       this.setState({
         id: response.data.id,

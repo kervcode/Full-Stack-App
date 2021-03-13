@@ -34,7 +34,7 @@ class UpdateCourse extends Component {
   
     
     axios
-      .get(`http://localhost:5000/api/courses/${id}`)
+      .get(`https://fullstackreactapp01.herokuapp.com/api/courses/${id}`)
       .then((response) => {
         const ownerEmail = response.data.Owner.emailAddress;
         if (ownerEmail !== currentUserEmail) {
